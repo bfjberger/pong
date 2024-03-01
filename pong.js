@@ -1,12 +1,12 @@
 //board
 let board;
-let boardWidth = 500;
+let boardWidth = 700;
 let boardHeight = 500;
 let context; 
 
 //players
 let playerWidth = 10;
-let playerHeight = 50;
+let playerHeight = 70;
 let playerVelocityY = 0;
 
 let player1 = {
@@ -40,26 +40,36 @@ let ball = {
 let player1Score = 0;
 let player2Score = 0;
 
+let start = false;
+
 window.onload = function() {
+
     board = document.getElementById("board");
     board.height = boardHeight;
     board.width = boardWidth;
     context = board.getContext("2d"); //used for drawing on the board
 
-    //draw initial player1
-    context.fillStyle="skyblue";
-    context.fillRect(player1.x, player1.y, playerWidth, playerHeight);
+        // ask to press a key
+        context.fillText('Press any key to begin',
+        board.width / 2 - 50,
+        board.height / 2 + 15);
 
-    requestAnimationFrame(update);
+    document.addEventListener("keydown", pressKey);
+ 
+    // context.fillStyle="blue";
+    // context.fillRect(player1.x, player1.y, playerWidth, playerHeight);
+
     document.addEventListener("keyup", movePlayer);
 }
 
 function update() {
+    
+    start = true;
     requestAnimationFrame(update);
     context.clearRect(0, 0, board.width, board.height);
 
     // player1
-    context.fillStyle = "skyblue";
+    context.fillStyle = "blue";
     let nextPlayer1Y = player1.y + player1.velocityY;
     if (!outOfBounds(nextPlayer1Y)) {
         player1.y = nextPlayer1Y;
@@ -68,6 +78,7 @@ function update() {
     context.fillRect(player1.x, player1.y, playerWidth, playerHeight);
 
     // player2
+    context.fillStyle = "red";
     let nextPlayer2Y = player2.y + player2.velocityY;
     if (!outOfBounds(nextPlayer2Y)) {
         player2.y = nextPlayer2Y;
@@ -87,11 +98,11 @@ function update() {
     }
 
     // if (ball.y <= 0) { 
-    //     // if ball touches top of canvas
+        // if ball touches top of canvas
     //     ball.velocityY = 2; //go down
     // }
     // else if (ball.y + ballHeight >= boardHeight) {
-    //     // if ball touches bottom of canvas
+        // if ball touches bottom of canvas
     //     ball.velocityY = -2; //go up
     // }
 
@@ -128,7 +139,13 @@ function update() {
         context.fillRect(board.width / 2 - 10, i, 5, 5); 
     }
 }
-
+function pressKey(k)
+{
+    if (k && start == false)
+    {
+       requestAnimationFrame(update);
+    }
+}
 function outOfBounds(yPosition) {
     return (yPosition < 0 || yPosition + playerHeight > boardHeight);
 }
