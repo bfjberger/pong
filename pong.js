@@ -50,8 +50,10 @@ window.onload = function() {
     context = board.getContext("2d"); //used for drawing on the board
 
         // ask to press a key
+        // context.font 15px pour la taille et sans-serif pour la police
+        context.font = "15px sans-serif";
         context.fillText('Press space to start / Press escape to reload',
-        board.width / 2 - 80,
+        board.width / 2 - 130,
         board.height / 2 + 15);
 
     document.addEventListener("keydown", pressKey);
@@ -140,22 +142,24 @@ function update() {
     {
         if (player1Score == 3)
         {
+            context.fillStyle = "blue";
             context.fillText('Player 1 won!!',
-            board.width / 2 - 100,
+            board.width / 2 - 110,
             board.height / 2 + 15);
             ball.velocityX = 0;
             ball.velocityY = 0;   
         }
         else{
+            context.fillStyle = "red";
             context.fillText('Player 2 won!!',
-            board.width / 2 - 80,
+            board.width / 2 - 110,
             board.height / 2 + 15); 
             ball.velocityX = 0;
             ball.velocityY = 0;
         }
     }
 }
-
+ 
 // check key pressed
 function pressKey(k)
 {
