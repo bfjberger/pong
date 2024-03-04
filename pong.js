@@ -50,20 +50,17 @@ window.onload = function() {
     context = board.getContext("2d"); //used for drawing on the board
 
         // ask to press a key
-        context.fillText('Press any key to begin',
-        board.width / 2 - 50,
+        context.fillText('Press space to start / Press escape to reload',
+        board.width / 2 - 80,
         board.height / 2 + 15);
 
     document.addEventListener("keydown", pressKey);
- 
-    // context.fillStyle="blue";
-    // context.fillRect(player1.x, player1.y, playerWidth, playerHeight);
 
     document.addEventListener("keyup", movePlayer);
 }
 
 function update() {
-    
+    document.addEventListener("keydown", pressKey);
     start = true;
     requestAnimationFrame(update);
     context.clearRect(0, 0, board.width, board.height);
@@ -138,13 +135,39 @@ function update() {
         // (x position = half of boardWidth (middle) - 10), i = y position, width = 5, height = 5
         context.fillRect(board.width / 2 - 10, i, 5, 5); 
     }
+
+    if (player1Score == 3 || player2Score == 3)
+    {
+        if (player1Score == 3)
+        {
+            context.fillText('Player 1 won!!',
+            board.width / 2 - 100,
+            board.height / 2 + 15);
+            ball.velocityX = 0;
+            ball.velocityY = 0;   
+        }
+        else{
+            context.fillText('Player 2 won!!',
+            board.width / 2 - 80,
+            board.height / 2 + 15); 
+            ball.velocityX = 0;
+            ball.velocityY = 0;
+        }
+    }
 }
+
+// check key pressed
 function pressKey(k)
 {
-    if (k && start == false)
-    {
-       requestAnimationFrame(update);
-    }
+        if (k.code === 'Space' && start == false)
+        {
+           requestAnimationFrame(update);
+        }
+        if (k.code === 'Escape')
+        {
+            // console.log(k.code)
+            window.location.reload();
+        }
 }
 function outOfBounds(yPosition) {
     return (yPosition < 0 || yPosition + playerHeight > boardHeight);
