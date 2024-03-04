@@ -144,7 +144,7 @@ function update() {
         {
             context.fillStyle = "blue";
             context.fillText('Player 1 won!!',
-            board.width / 2 - 110,
+            board.width / 2 - 130,
             board.height / 2 + 15);
             ball.velocityX = 0;
             ball.velocityY = 0;   
@@ -152,7 +152,7 @@ function update() {
         else{
             context.fillStyle = "red";
             context.fillText('Player 2 won!!',
-            board.width / 2 - 110,
+            board.width / 2 - 130,
             board.height / 2 + 15); 
             ball.velocityX = 0;
             ball.velocityY = 0;
